@@ -25,25 +25,17 @@ function randId (){
 // submit
 
 const form = document.getElementById("form");
-form.addEventListener("submit", handleSubmit);
+    form.addEventListener("submit", handleSubmit);
+    
+    function handleSubmit(event) {
+      event.preventDefault();
+       let foodId = randId();
+       let foodName = event.target.foodName.value;
+       let foodType = event.target.foodType.value;
+       let price = event.target.price.value;
 
 
 
-
-
-
-function handleSubmit(event) {
-
-
- 
-  event.preventDefault();
-  let foodId = randId();
-  let foodName = event.target.foodName.value;
-  let foodType = event.target.foodType.value;
-  let price = event.target.price.value;
-  let newFood = new Food(foodId,foodName, foodType, price);
-
-//using CDN library to add confirm box
 
 Swal.fire({
   title: 'Do you want to save the changes?',
@@ -55,13 +47,26 @@ Swal.fire({
   /* Read more about isConfirmed, isDenied below */
   if (result.isConfirmed) {
     Swal.fire('Saved!', '', 'success');
+    
+       let newFood = new Food(foodId,foodName, foodType, price);
+
     localStorage.setItem("allfood", JSON.stringify(allfood));
-    console.log(randId(),"added")
-  } else if (result.isDenied) {
-    Swal.fire('Changes are not saved', '', 'info')
+    console.log(randId(),"added");
+  } 
+  
+  else if (result.isDenied) {
+    Swal.fire('Changes are not saved', '', 'info');
+    console.log("ignored");
   }
 })
+
 }
+
+
+
+//using CDN library to add confirm box
+
+
 
 // before new style with CDN library
  /*  let addConfirm = confirm ('are you sure to add this item ?');
